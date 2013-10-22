@@ -6,7 +6,7 @@
 #
 # This file can be downloaded directly and installed via the following command:
 #
-# wget -O- --no-check-certificate https://petris.io/minecraft-installer/mainline/blobs/raw/master/minecraft-installer.sh | /bin/sh
+# wget -O- --no-check-certificate https://petris.io/petris/minecraft-installer/raw/master/minecraft-installer.sh | /bin/sh
 #
 # Author: Ryan Petris (ryan@petris.tel)
 # Homepage: http://ryanpetris.com/
