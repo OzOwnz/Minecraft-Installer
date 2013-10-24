@@ -50,6 +50,7 @@ cat <<EOF > /opt/minecraft/start.sh
 #!/bin/sh
 cd /opt/minecraft
 /usr/bin/screen -S minecraft -d -m su minecraft -s /bin/sh -c "/usr/bin/java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui"
+sleep 2
 screen -list | grep minecraft | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /var/run/minecraft.pid
 EOF
 cat <<EOF > /opt/minecraft/stop.sh
