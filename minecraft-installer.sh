@@ -27,6 +27,10 @@
 # an invisible control character is used in the stop script to properly send
 # a carriage return to the running minecraft server. 
 
+# I AM NOT RESPONSIBLE FOR ANY DAMAGE DONE TO YOUR SERVER/COMPUTER BY THIS
+# SCRIPT. RUN AT YOUR OWN RISK. ADDITIONALLY, THIS SCRIPT IS NOT GURANTEED
+# TO WORK.
+
 # Install EPEL Repository, java, monit, and screen, and additionally
 # make sure everything is up to date.
 yum install -y http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
