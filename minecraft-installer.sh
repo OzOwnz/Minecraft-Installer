@@ -26,10 +26,10 @@
 # that does not keep control characters as they are in the original file, as
 # an invisible control character is used in the stop script to properly send
 # a carriage return to the running minecraft server. 
-
+#
 # I AM NOT RESPONSIBLE FOR ANY DAMAGE DONE TO YOUR SERVER/COMPUTER BY THIS
-# SCRIPT. RUN AT YOUR OWN RISK. ADDITIONALLY, THIS SCRIPT IS NOT GURANTEED
-# TO WORK.
+# SCRIPT. RUN AT YOUR OWN RISK. ADDITIONALLY, THIS SCRIPT IS NOT GUARANTEED
+# TO WORK, OR EVEN HAVE PROPER SPELLING OR GRAMMAR.
 
 # Install EPEL Repository, java, monit, and screen, and additionally
 # make sure everything is up to date.
