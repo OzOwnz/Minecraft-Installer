@@ -6,7 +6,7 @@
 #
 # This file can be downloaded directly and installed via the following command:
 #
-# wget -O- --no-check-certificate https://petris.io/petris/minecraft-installer/raw/master/minecraft-installer.sh | /bin/sh
+# wget -O- https://gitlab.com/ryanpetris/minecraft-installer/raw/master/minecraft-installer.sh | /bin/sh
 #
 # Author: Ryan Petris (ryan@petris.tel)
 # Homepage: http://ryanpetris.com/
@@ -59,7 +59,8 @@ screen -list | grep minecraft | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /v
 EOF
 cat <<EOF > /opt/minecraft/stop.sh
 #!/bin/sh
-screen -dr minecraft -p 0 -X stuff "stop"
+screen -dr minecraft -p 0 -X stuff "stop
+"
 sleep 5
 EOF
 
