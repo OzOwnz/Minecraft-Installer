@@ -6,7 +6,7 @@
 #
 # This file can be downloaded directly and installed via the following command:
 #
-# wget -O- https://gitlab.com/ryanpetris/minecraft-installer/raw/master/minecraft-installer.sh | /bin/sh
+# wget -O- https://github.com/ryanpetris/Minecraft-Installer/raw/master/minecraft-installer.sh | /bin/sh
 #
 # Author: Ryan Petris (ryan@petris.tel)
 # Homepage: http://ryanpetris.com/
