@@ -8,10 +8,10 @@
 #
 # wget -O- https://github.com/ryanpetris/Minecraft-Installer/raw/master/minecraft-installer.sh | /bin/sh
 #
-# Author: Ryan Petris (ryan@petris.tel)
-# Homepage: http://ryanpetris.com/
-# License: GNU Affero General Public License (AGPLv3)
-#          http://www.gnu.org/licenses/agpl-3.0.txt
+# Author:   Ryan Petris (ryan@ryanpetris.com)
+# Homepage: http://www.ryanpetris.com/
+# License:  GNU Affero General Public License (AGPLv3)
+#           http://www.gnu.org/licenses/agpl-3.0.txt
 #
 # Notes:
 # This script was written to run properly on CentOS 6. While other
