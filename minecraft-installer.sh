@@ -46,13 +46,13 @@ adduser -d /home/oz/ -s /sbin/nologin -M oz
 # ^^^CHECK IF /home/oz/<- (note last /) IS CORRECT
 
 # Update Spigot (illegal download link for kicks, never used it before...)
-wget -O /home/oz/proxy/spigot.jar http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar
-cp -u spigot.jar /home/oz/proxy
-cp -u spigot.jar /home/oz/login
-cp -u spigot.jar /home/oz/hub
-cp -u spigot.jar /home/oz/overworld
-cp -u spigot.jar /home/oz/creative
-rm -f spigot.jar
+wget -O /home/oz/spigot.jar http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar
+cp -u /home/oz/spigot.jar /home/oz/proxy
+cp -u /home/oz/spigot.jar /home/oz/login
+cp -u /home/oz/spigot.jar /home/oz/hub
+cp -u /home/oz/spigot.jar /home/oz/overworld
+cp -u /home/oz/spigot.jar /home/oz/creative
+rm -f /home/oz/spigot.jar
 
 # Gives complete access of everything in /home/oz to oz
 chown -R oz /home/oz
