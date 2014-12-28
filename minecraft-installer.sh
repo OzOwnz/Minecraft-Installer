@@ -6,54 +6,52 @@
 #
 # This file can be downloaded directly and installed via the following command:
 #
-# wget -O- https://github.com/ryanpetris/Minecraft-Installer/raw/master/minecraft-installer.sh | /bin/sh
+# wget -O- https://github.com/OzOwnz/Minecraft-Installer/raw/master/minecraft-installer.sh | /bin/sh
 #
-# Author:   Ryan Petris (ryan@ryanpetris.com)
+# Original Author:   Ryan Petris (ryan@ryanpetris.com)
 # Homepage: http://www.ryanpetris.com/
 # License:  GNU Affero General Public License (AGPLv3)
 #           http://www.gnu.org/licenses/agpl-3.0.txt
 #
 # Notes:
-# This script was written to run properly on CentOS 6. While other
-# distributions may work, they have not been tested. Additionally, this
-# script will download and install the EPEL repository and update. If
-# this is not safe for your system (i.e., you have another repository
-# that may have conflicting packages), then you will need to remove that
-# line. You will need to manually install monit from another source for
-# monitoring to work properly.
+# This script has been editted to work properly on Debian Wheezy 7.
 #
 # It is recommended that this script not be edited or copied from an editor
 # that does not keep control characters as they are in the original file, as
 # an invisible control character is used in the stop script to properly send
 # a carriage return to the running minecraft server. 
-#
-# I AM NOT RESPONSIBLE FOR ANY DAMAGE DONE TO YOUR SERVER/COMPUTER BY THIS
-# SCRIPT. RUN AT YOUR OWN RISK. ADDITIONALLY, THIS SCRIPT IS NOT GUARANTEED
-# TO WORK, OR EVEN HAVE PROPER SPELLING OR GRAMMAR.
 
 # Install EPEL Repository, java, monit, and screen, and additionally
 # make sure everything is up to date.
-yum install -y http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-yum update
-yum install -y java-1.7.0-openjdk monit screen
 
-# Create the minecraft directory and create a user for the minecraft
-# server that is not allowed to login.
+# Generic updates
+apt-get update
+apt-get dist-upgrade
+
+# Download & install Monit
+aptitude install monit
+
+# Makes a directory if it doesn't already exist
 mkdir -p /opt/minecraft/
+
+# Creates a new user with a home directory of /opt/minecraft/ & sets the login
+# shell to a dummy value (/sbin/nologin) so they can't login. (-M) stops from creating
+# a home directory.
 adduser -d /opt/minecraft/ -s /sbin/nologin -M minecraft
 
+
 # Download Spigot
-wget -O /opt/minecraft/minecraft_server.jar http://ci.md-5.net/job/Spigot/lastSuccessfulBuild/artifact/Spigot-Server/target/spigot.jar
+wget -O /opt/minecraft/spigot.jar http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar
 
 # Permissions
 chown minecraft:minecraft /opt/minecraft/
-chown minecraft:minecraft /opt/minecraft/minecraft_server.jar
+chown minecraft:minecraft /opt/minecraft/spigot.jar
 
 # Create start and stop files
 cat <<EOF > /opt/minecraft/start.sh
 #!/bin/sh
 cd /opt/minecraft
-/usr/bin/screen -S minecraft -d -m su minecraft -s /bin/sh -c "/usr/bin/java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui"
+/usr/bin/screen -S minecraft -d -m su minecraft -s /bin/sh -c "/usr/bin/java -Xmx1G -Xms256M -jar spigot.jar nogui"
 sleep 2
 screen -list | grep minecraft | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /var/run/minecraft.pid
 EOF
@@ -78,4 +76,4 @@ EOF
 chkconfig monit on
 service monit start
 
-echo "Minecraft is installed and running!"
+echo "Spigot is installed and running!"
