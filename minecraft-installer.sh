@@ -31,26 +31,36 @@ apt-get dist-upgrade
 # Download & install Monit
 aptitude install monit
 
-# Makes a directory if it doesn't already exist
-mkdir -p /opt/minecraft/
+# Makes directories for each of the servers if they don't already exist
+mkdir -p /home/oz
+mkdir -p /home/oz/proxy
+mkdir -p /home/oz/login
+mkdir -p /home/oz/hub
+mkdir -p /home/oz/overworld
+mkdir -p /home/oz/creative
 
 # Creates a new user with a home directory of /opt/minecraft/ & sets the login
 # shell to a dummy value (/sbin/nologin) so they can't login. (-M) stops from creating
 # a home directory.
-adduser -d /opt/minecraft/ -s /sbin/nologin -M minecraft
+adduser -d /home/oz/ -s /sbin/nologin -M oz
 
 
-# Download Spigot
-wget -O /opt/minecraft/spigot.jar http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar
+# Update Spigot
+wget -O /home/oz/proxy/spigot.jar http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar
+cp -u spigot.jar /home/oz/proxy
+cp -u spigot.jar /home/oz/login
+cp -u spigot.jar /home/oz/hub
+cp -u spigot.jar /home/oz/overworld
+cp -u spigot.jar /home/oz/creative
+rm -f spigot.jar
 
-# Permissions
-chown minecraft:minecraft /opt/minecraft/
-chown minecraft:minecraft /opt/minecraft/spigot.jar
+# Gives complete access of everything in /home/oz to 'oz'
+chown -R oz /home/oz
 
 # Create start and stop files
 cat <<EOF > /opt/minecraft/start.sh
 #!/bin/sh
-cd /opt/minecraft
+cd /home/oz
 /usr/bin/screen -S minecraft -d -m su minecraft -s /bin/sh -c "/usr/bin/java -Xmx1G -Xms256M -jar spigot.jar nogui"
 sleep 2
 screen -list | grep minecraft | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /var/run/minecraft.pid
