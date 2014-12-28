@@ -39,13 +39,13 @@ mkdir -p /home/oz/hub
 mkdir -p /home/oz/overworld
 mkdir -p /home/oz/creative
 
-# Creates a new user with a home directory of /opt/minecraft/ & sets the login
+# Creates a new user (oz) with a home directory of /home/oz/ & sets the login
 # shell to a dummy value (/sbin/nologin) so they can't login. (-M) stops from creating
 # a home directory.
 adduser -d /home/oz/ -s /sbin/nologin -M oz
+# ^^^CHECK IF /home/oz/<- (note last /) IS CORRECT
 
-
-# Update Spigot
+# Update Spigot (illegal download link for kicks, never used it before...)
 wget -O /home/oz/proxy/spigot.jar http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar
 cp -u spigot.jar /home/oz/proxy
 cp -u spigot.jar /home/oz/login
@@ -54,16 +54,16 @@ cp -u spigot.jar /home/oz/overworld
 cp -u spigot.jar /home/oz/creative
 rm -f spigot.jar
 
-# Gives complete access of everything in /home/oz to 'oz'
+# Gives complete access of everything in /home/oz to oz
 chown -R oz /home/oz
 
 # Create start and stop files
-cat <<EOF > /opt/minecraft/start.sh
+cat <<EOF > /home/oz/start.sh
 #!/bin/sh
 cd /home/oz
-/usr/bin/screen -S minecraft -d -m su minecraft -s /bin/sh -c "/usr/bin/java -Xmx1G -Xms256M -jar spigot.jar nogui"
+screen -S login -d -m su oz "java -Xms32m -Xmx128m -jar spigot.jar -o false --nojline"
 sleep 2
-screen -list | grep minecraft | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /var/run/minecraft.pid
+screen -list | grep login | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /var/run/minecraft.pid
 EOF
 cat <<EOF > /opt/minecraft/stop.sh
 #!/bin/sh
