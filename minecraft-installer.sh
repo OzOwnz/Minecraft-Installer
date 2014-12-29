@@ -39,32 +39,44 @@ mkdir -p /home/oz/hub
 mkdir -p /home/oz/overworld
 mkdir -p /home/oz/creative
 
-# Creates a new user (oz) with a home directory of /home/oz/ & sets the login
+# Creates a new user (oz & monit) both with a home directory of /home/oz/ & sets the login
 # shell to a dummy value (/sbin/nologin) so they can't login. (-M) stops from creating
 # a home directory.
-adduser -d /home/oz/ -s /sbin/nologin -M oz
+adduser -d /home/oz/ -s /sbin/nologin -M monit
+adduser oz
 # ^^^CHECK IF /home/oz/<- (note last /) IS CORRECT
 
 # Update Spigot (illegal download link for kicks, never used it before...)
 wget -O /home/oz/spigot.jar http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar
+# Copy to all directories
 cp -u /home/oz/spigot.jar /home/oz/proxy
 cp -u /home/oz/spigot.jar /home/oz/login
 cp -u /home/oz/spigot.jar /home/oz/hub
 cp -u /home/oz/spigot.jar /home/oz/overworld
 cp -u /home/oz/spigot.jar /home/oz/creative
+# Remove original jar
 rm -f /home/oz/spigot.jar
 
 # Gives complete access of everything in /home/oz to oz
 chown -R oz /home/oz
+chown -R monit /home/oz
 
-# Create start and stop files
-cat <<EOF > /home/oz/start.sh
+# How to kill a server:
+# 1. Softly, /stop
+# 2. Wait and check if it's dead
+# 3. Aggressively kill the process via pid and/or port
+
+
+# Creates a, kill all if running, and restart all, script
+cat <<EOF > /home/oz/start_all.sh
 #!/bin/sh
 cd /home/oz
 screen -S login -d -m su oz "java -Xms32m -Xmx128m -jar spigot.jar -o false --nojline"
 sleep 2
 screen -list | grep login | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /var/run/minecraft.pid
 EOF
+
+
 cat <<EOF > /opt/minecraft/stop.sh
 #!/bin/sh
 screen -dr minecraft -p 0 -X stuff "stop
