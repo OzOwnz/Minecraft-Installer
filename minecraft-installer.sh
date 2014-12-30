@@ -25,8 +25,8 @@
 # make sure everything is up to date.
 
 # Generic updates
-apt-get update
-apt-get dist-upgrade
+#apt-get update
+#apt-get dist-upgrade
 
 # Download & install Monit
 aptitude install monit
@@ -69,15 +69,15 @@ chown -R oz /home/oz
 # Creates a kill-if-running, and start script for the login server
 cat <<EOF > /home/oz/start_login.sh
 #!/bin/sh
-echo Attempting to kill login server...
+echo "Attempting to kill login server..."
 kill -9 $(cat /home/oz/login.pid)
-echo Attempting to quit login server screen session...
+echo "Attempting to quit login server screen session..."
 screen -S login -X quit
-echo Attempting to open login server directory...
+echo "Attempting to open login server directory..."
 cd /home/oz/login
-echo Attempting to create a new screen session and start the server...
+echo "Attempting to create a new screen session and start the server..."
 screen -S login -d -m su oz "java -Xms32m -Xmx128m -jar spigot.jar -o false --nojline"
-echo Saving login server's pid to file...
+echo "Saving login server's pid to file..."
 echo $! >/home/oz/login.pid
 EOF
 
