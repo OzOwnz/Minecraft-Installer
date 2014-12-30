@@ -66,44 +66,40 @@ chown -R monit /home/oz
 # 2. Wait and check if it's dead
 # 3. Aggressively kill the process via pid (kill -9 PID)
 
-
-# Creates a, kill all if running, and restart all, script
-cat <<EOF > /home/oz/start_all.sh
-#!/bin/sh
-cd /home/oz
-screen -S login -d -m su oz "java -Xms32m -Xmx128m -jar spigot.jar -o false --nojline"
-sleep 2
-screen -list | grep login | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /var/run/minecraft.pid
-EOF
 # Creates a kill-if-running, and start script for the login server
 cat <<EOF > /home/oz/start_login.sh
 #!/bin/sh
+echo Attempting to kill login server...
+kill -9 $(cat /home/oz/login.pid)
+echo Attempting to quit login server screen session...
+screen -S login -X quit
+echo Attempting to open login server directory...
 cd /home/oz/login
+echo Attempting to create a new screen session and start the server...
 screen -S login -d -m su oz "java -Xms32m -Xmx128m -jar spigot.jar -o false --nojline"
-sleep 2
-screen -list | grep login | sed -r 's/[^0-9]*([0-9]+)\.minecraft.*/\1/' > /var/run/minecraft.pid
+echo Saving login server's pid to file...
+echo $! >/home/oz/login.pid
 EOF
 
 
-cat <<EOF > /opt/minecraft/stop.sh
+cat <<EOF > /home/oz/stop_login.sh
 #!/bin/sh
-screen -dr minecraft -p 0 -X stuff "stop
+screen -dr login -p 0 -X stuff "stop
 "
-sleep 5
 EOF
 
-# Make these files executable
-chmod +x /opt/minecraft/*.sh
+# Gives these files executability
+chmod +x /home/oz/*.sh
 
 # Create monit file
 cat <<EOF > /etc/monit.d/minecraft
-check process minecraft with pidfile /var/run/minecraft.pid
-    start program = "/opt/minecraft/start.sh"
-    stop program = "/opt/minecraft/stop.sh"
+check process login with pidfile /home/oz/login.pid
+    start program = "/home/oz/start_login.sh"
+    stop program = "/home/oz/stop_login.sh"
 EOF
 
-/opt/minecraft/start.sh
+/home/oz/start_login.sh
 chkconfig monit on
 service monit start
 
-echo "Spigot is installed and running!"
+echo "Completed!"
