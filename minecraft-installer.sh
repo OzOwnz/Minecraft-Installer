@@ -47,7 +47,7 @@ adduser oz
 # ^^^CHECK IF /home/oz/<- (note last /) IS CORRECT
 
 # Update Spigot (illegal download link for kicks, never used it before...)
-wget -O /home/oz/spigot.jar http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar
+wget -O /home/oz/spigot.jar 'http://tcpr.ca/files/spigot/spigot-1.8-R0.1-SNAPSHOT-latest.jar'
 # Copy to all directories
 cp -u /home/oz/spigot.jar /home/oz/proxy
 cp -u /home/oz/spigot.jar /home/oz/login
@@ -59,7 +59,7 @@ rm -f /home/oz/spigot.jar
 
 # Gives complete access of everything in /home/oz to oz & monit
 chown -R oz /home/oz
-chown -R monit /home/oz
+#chown -R monit /home/oz
 
 # How to kill a server:
 # 1. Softly, /stop
