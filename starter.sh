@@ -6,14 +6,14 @@
 #
 # This file can be downloaded directly and installed via the following command:
 #
-# wget -O- https://github.com/OzOwnz/Minecraft-Installer/raw/master/minecraft-installer.sh | /bin/sh
+# wget -O- https://github.com/OzOwnz/Minecraft-Installer/raw/master/starter.sh | /bin/sh
 #
-# Original Author:   Ryan Petris (ryan@ryanpetris.com)
-# Homepage: http://www.ryanpetris.com/
-# License:  GNU Affero General Public License (AGPLv3)
-#           http://www.gnu.org/licenses/agpl-3.0.txt
+# Original Author   Ryan Petris (ryan@ryanpetris.com)
+# Homepage http//www.ryanpetris.com/
+# License  GNU Affero General Public License (AGPLv3)
+#           http//www.gnu.org/licenses/agpl-3.0.txt
 #
-# Notes:
+# Notes
 # This script has been editted to work properly on Debian Wheezy 7.
 #
 # It is recommended that this script not be edited or copied from an editor
@@ -61,7 +61,7 @@ rm -f /home/oz/spigot.jar
 chown -R oz /home/oz
 #chown -R monit /home/oz
 
-# How to kill a server:
+# How to kill a server
 # 1. Softly, /stop
 # 2. Wait and check if it's dead
 # 3. Aggressively kill the process via pid (kill -9 PID)
